@@ -2,6 +2,7 @@ import 'server-only'
 
 import { db } from '@/app/lib/firebase'
 import type Stripe from 'stripe'
+import resend from '@/app/lib/resend'
 
 export async function handleStripeCancelSubscription (
   event: Stripe.CustomerSubscriptionDeletedEvent
@@ -21,9 +22,23 @@ export async function handleStripeCancelSubscription (
   }
 
   const userId = userRef.docs[0].id
+  const userEmail = userRef.docs[0].data().email
 
   await db
     .collection('users')
     .doc(userId)
     .update({ subscriptionStatus: 'inactive' })
+
+  const { data, error } = await resend.emails.send({
+    from: 'Acme <dev@jusceliadesouza.com>',
+    to: [userEmail],
+    subject: 'Assinatura cancelada com sucesso!',
+    text: 'Assinatura cancelada com sucesso!'
+  })
+
+  if(error) {
+    console.error(error);
+  }
+
+  console.log(data)
 }

@@ -19,7 +19,6 @@ export function useStripe () {
     loadStripeAsync()
   }, [])
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   async function createPaymentStripeCheckout (checkoutData: { testId: string }) {
     if (!stripe) return
 
@@ -42,7 +41,6 @@ export function useStripe () {
     }
   }
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   async function createSubscriptionStripeCheckout (checkoutData: {
     testId: string
   }) {

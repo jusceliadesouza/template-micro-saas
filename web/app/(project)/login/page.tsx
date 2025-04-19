@@ -1,6 +1,14 @@
+import { redirect } from "next/navigation";
 import { handleAuth } from "@/app/actions/handle-auth";
+import { auth } from "@/app/lib/auth";
 
-export default function Login() {
+export default async function Login() {
+  const session = await auth() 
+
+  if (session) {
+    redirect("/dashboard")
+  }
+  
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-10">
       <h1 className="text-4xl font-bold">Login</h1>
