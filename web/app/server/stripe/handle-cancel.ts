@@ -1,5 +1,6 @@
-import { db } from '@/app/lib/firebase'
 import 'server-only'
+
+import { db } from '@/app/lib/firebase'
 import type Stripe from 'stripe'
 
 export async function handleStripeCancelSubscription (
