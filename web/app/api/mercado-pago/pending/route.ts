@@ -20,7 +20,7 @@ export async function GET (req: NextRequest) {
 
   if (
     paymentData.status === 'aproved' ||
-    paymentData.date_approved === 'approved'
+    paymentData.date_approved !== null
   ) {
     return NextResponse.redirect(new URL('/success', req.url))
   }

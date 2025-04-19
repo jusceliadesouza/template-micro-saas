@@ -6,7 +6,7 @@ export async function handleMercadoPagoPayment (paymentData: PaymentResponse) {
   const testId = metadata.test_id
 
   console.log(
-    'PAGAMENTO REAALIZADO COM SUCESSO!!!',
+    'PAGAMENTO REALIZADO COM SUCESSO!!!',
     userEmail,
     testId,
     paymentData

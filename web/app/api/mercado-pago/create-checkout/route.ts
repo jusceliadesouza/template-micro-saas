@@ -49,7 +49,7 @@ export async function POST (req: NextRequest) {
 
         auto_return: 'approved',
         back_urls: {
-          success: `${req.headers.get('origin')}/api/mercado-pago/succes`,
+          success: `${req.headers.get('origin')}/api/mercado-pago/success`,
           failure: `${req.headers.get('origin')}/api/mercado-pago/failure`,
           pending: `${req.headers.get('origin')}/api/mercado-pago/pending`
         }
