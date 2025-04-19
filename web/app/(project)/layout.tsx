@@ -18,9 +18,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt">
+    <html lang="pt-BR">
       <body
-        className={`${sora.variable}  bg-neutral-950 text-neutral-50 antialiased`}
+        className={`${sora.variable} bg-neutral-100 antialiased`}
       >
         {children}
       </body>

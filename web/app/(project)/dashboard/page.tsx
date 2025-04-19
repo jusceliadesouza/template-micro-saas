@@ -1,6 +1,8 @@
+import Link from "next/link";
+import { redirect } from "next/navigation";
+
 import { handleAuth } from "@/app/actions/handle-auth";
 import { auth } from "@/app/lib/auth";
-import { redirect } from "next/navigation";
 
 export default async function Dashboard() {
   // Lado Servidor
@@ -23,12 +25,14 @@ export default async function Dashboard() {
         <form action={handleAuth}>
           <button
             type="submit"
-            className="px-4 py-2 border rounded-md border-neutral-50 cursor-pointer"
+            className="px-4 py-2 border rounded-md border-neutral-950 cursor-pointer"
           >
             Logout
           </button>
         </form>
       )}
+
+      <Link href="/pagamentos" className="px-4 py-2 border rounded-md border-neutral-950 cursor-pointer">Pagamentos</Link>
     </div>
   );
 }
