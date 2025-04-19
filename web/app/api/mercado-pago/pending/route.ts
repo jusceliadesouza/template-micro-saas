@@ -24,4 +24,6 @@ export async function GET (req: NextRequest) {
   ) {
     return NextResponse.redirect(new URL('/success', req.url))
   }
+
+  return NextResponse.redirect(new URL('/', req.url))
 }
