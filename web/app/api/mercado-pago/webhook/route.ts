@@ -1,7 +1,8 @@
+import { NextResponse, type NextRequest } from 'next/server'
+import { Payment } from 'mercadopago'
+
 import mpClient, { validateMercadoPagoWebHook } from '@/app/lib/mercado-pago'
 import { handleMercadoPagoPayment } from '@/app/server/mercado-pago/handle-payment'
-import { Payment } from 'mercadopago'
-import type { NextRequest } from 'next/server'
 
 export async function POST (req: NextRequest) {
   try {
@@ -12,34 +13,46 @@ export async function POST (req: NextRequest) {
     const { type, data } = body
 
     switch (type) {
-      case 'payment':
-        // biome-ignore lint/correctness/noSwitchDeclarations: <explanation>
+      case 'payment': {
         const payment = new Payment(mpClient)
 
-        // biome-ignore lint/correctness/noSwitchDeclarations: <explanation>
         const paymentData = await payment.get({ id: data.id })
 
         if (
           paymentData.status === 'approved' ||
-          paymentData.date_approved === 'approved'
+          paymentData.date_approved !== null
         ) {
           await handleMercadoPagoPayment(paymentData)
         }
         break
-      case 'subscription_preapproval':
-        // const subscription = new Subscription(mpClient)
+      }
+      // case 'subscription_preapproval':
+      // const subscription = new Subscription(mpClient)
 
-        // const subscriptionData = await subscription.get({ id: data.id })
+      // const subscriptionData = await subscription.get({ id: data.id })
 
-        // if (subscriptionData.status === 'approved') {
-        //   await handleMercadoPagoSubscription(subscriptionData)
-        // }
-        break
+      // if (subscriptionData.status === 'approved') {
+      //   await handleMercadoPagoSubscription(subscriptionData)
+      // }
+      // break
       default:
         console.log('Event type not supported')
         break
     }
+
+    return NextResponse.json(
+      {
+        received: true
+      },
+      { status: 200 }
+    )
   } catch (error) {
-    console.log(error)
+    console.log('Error handling webhook', error)
+    return NextResponse.json(
+      {
+        error: 'Error handling webhook'
+      },
+      { status: 500 }
+    )
   }
 }
