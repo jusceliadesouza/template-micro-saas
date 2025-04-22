@@ -14,7 +14,7 @@ export async function handleMercadoPagoPayment (paymentData: PaymentResponse) {
   )
   
   const { data, error } = await resend.emails.send({
-    from: 'Acme <dev@jusceliadesouza.com>',
+    from: 'Juscelia <dev@jusceliadesouza.com>',
     to: [userEmail],
     subject: 'Pagamento realizado com sucesso!',
     text: 'Pagamento realizado com sucesso!'
